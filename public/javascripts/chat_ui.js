@@ -1,7 +1,7 @@
 // var io = require("socket.io");
 // var Chat = require("./chat_ui");
 
-var getMessage = function() {
+Chat.prototype.getMessage = function() {
   return $("#msg").val();
 };
 
@@ -9,10 +9,19 @@ var getMessage = function() {
 //   this.sendMessage(message);
 // };
 
-var showMessage = function(message) {
+Chat.prototype.showMessage = function(message) {
   var li = $("<li>");
   li.text(message);
-  $("ul").prepend(li);
+  $(".message").prepend(li);
+};
+
+Chat.prototype.showUsers = function(nicknames) {
+  $(".members").empty();
+  Object.keys(nicknames).forEach( function(key) {
+    var li = $("<li>");
+    li.text(nicknames[key]);
+    $(".members").prepend(li);
+  });
 };
 
 $(function() {
@@ -20,13 +29,27 @@ $(function() {
   var chat = new Chat(socket);
   
   socket.on("message_from_server", function(data) {
-    showMessage(data);
+    chat.showMessage(data);
+  });
+  
+  socket.on("user_list", function(data) {
+    chat.showUsers(data);
+  });
+  
+  socket.on("nicknameChangeResult", function(data) {
+    if (data.success) {
+      chat.showMessage("Nickname changed to " + data.message);
+    } else {
+      chat.showMessage(data.message);
+    }
   });
   
   $("form").on("submit", function(event) {
     event.preventDefault();
     
-    var msg = getMessage();
+    var msg = chat.getMessage();
     chat.sendMessage(msg);
+    $("#msg").val("");
   });
 });
+
