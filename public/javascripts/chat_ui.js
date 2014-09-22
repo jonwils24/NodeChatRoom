@@ -15,11 +15,13 @@ Chat.prototype.showMessage = function(message) {
   $(".message").prepend(li);
 };
 
-Chat.prototype.showUsers = function(nicknames) {
+Chat.prototype.showUsers = function(data) {
+  var nicknames = data.nicknames;
+  var rooms = data.rooms;
   $(".members").empty();
   Object.keys(nicknames).forEach( function(key) {
     var li = $("<li>");
-    li.text(nicknames[key]);
+    li.text(nicknames[key] + ": " + rooms[key]);
     $(".members").prepend(li);
   });
 };
@@ -34,6 +36,11 @@ $(function() {
   
   socket.on("user_list", function(data) {
     chat.showUsers(data);
+  });
+  
+  socket.on("roomChange", function(data) {
+    chat.room = data;
+    chat.showMessage("joined " + chat.room)
   });
   
   socket.on("nicknameChangeResult", function(data) {
