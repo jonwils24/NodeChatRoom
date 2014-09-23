@@ -10,7 +10,7 @@ Chat.prototype.getMessage = function() {
 // };
 
 Chat.prototype.showMessage = function(message) {
-  var li = $("<li>");
+  var li = $("<li class='list-group-item'>");
   li.text(message);
   $(".message").prepend(li);
 };
@@ -20,7 +20,7 @@ Chat.prototype.showUsers = function(data) {
   var rooms = data.rooms;
   $(".members").empty();
   Object.keys(nicknames).forEach( function(key) {
-    var li = $("<li>");
+    var li = $("<li class='list-group-item'>");
     li.text(nicknames[key] + ": " + rooms[key]);
     $(".members").prepend(li);
   });

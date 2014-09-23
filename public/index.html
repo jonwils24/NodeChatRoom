@@ -5,18 +5,46 @@
   <script src="/socket.io/socket.io.js"></script>
   <script src="./javascripts/chat.js"></script>
   <script src="./javascripts/chat_ui.js"></script>
-  </script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="css.css">
 </head>
 <body>
-  <form>
-    <input type="text" id="msg">
-    <input type="submit" value="Send">
-  </form>
-  <ul class="message">
-  </ul>
-  <br>
-  <label>members</label>
-  <ul class="members">
-  </ul>
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 text-center">
+        <form>
+          <input type="text" id="msg">
+          <input type="submit" value="Send" class="btn btn-primary">
+        </form>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col-xs-6 chat">
+        <div class="panel panel-primary">
+          <div class="text-center panel-heading">
+            <label class="panel-title">chat</label>
+          </div>
+          <div class="panel-body">
+            <ul class="message list-group">
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-xs-6 users">
+        <div class="panel panel-primary">
+          <div class="text-center panel-heading">
+            <label class="panel-title">members</label>
+          </div>
+          <div class="panel-body">
+            <ul class="members list-group">
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
